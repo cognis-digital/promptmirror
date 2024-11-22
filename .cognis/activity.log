@@ -45,3 +45,4 @@
 2024-09-22T14:22:02  build(tests): add usage examples to help
 2024-10-24T09:39:09  fix(mcp): extract the scorer
 2024-11-08T16:56:16  test(report): clarify the README quickstart
+2024-11-22T11:13:23  ci(ci): simplify the walker
