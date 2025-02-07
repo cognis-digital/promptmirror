@@ -49,3 +49,4 @@
 2024-12-07T18:30:30  feat(detect): normalize unicode before matching
 2024-12-21T13:47:37  refactor: future me will understand this
 2025-01-23T08:04:44  refactor(engine): add a dry-run flag
+2025-02-07T15:21:51  test(tests): make timestamps timezone-aware
