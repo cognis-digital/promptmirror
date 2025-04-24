@@ -53,3 +53,4 @@
 2025-02-21T10:38:58  ci(scan): respect .gitignore when walking
 2025-03-08T17:55:05  feat(cache): document the config keys
 2025-03-22T12:12:12  test(deps): skip binary files by sniffing
+2025-04-24T19:29:19  ci(detect): add usage examples to help
