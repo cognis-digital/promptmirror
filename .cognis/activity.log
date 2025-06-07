@@ -56,3 +56,4 @@
 2025-04-24T19:29:19  ci(detect): add usage examples to help
 2025-05-09T14:46:26  feat(core): extract the scorer
 2025-05-23T09:03:33  docs: ELI5 pass
+2025-06-07T16:20:40  refactor(tests): add a --quiet mode
