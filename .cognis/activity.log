@@ -58,3 +58,4 @@
 2025-05-23T09:03:33  docs: ELI5 pass
 2025-06-07T16:20:40  refactor(tests): add a --quiet mode
 2025-07-09T11:37:47  test(scan): short-circuit on first critical
+2025-07-23T18:54:54  ci(fixtures): add a --format json alias
