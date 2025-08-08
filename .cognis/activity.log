@@ -59,3 +59,4 @@
 2025-06-07T16:20:40  refactor(tests): add a --quiet mode
 2025-07-09T11:37:47  test(scan): short-circuit on first critical
 2025-07-23T18:54:54  ci(fixtures): add a --format json alias
+2025-08-08T13:11:01  feat(parser): dedupe overlapping findings
