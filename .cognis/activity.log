@@ -62,3 +62,4 @@
 2025-08-08T13:11:01  feat(parser): dedupe overlapping findings
 2025-08-22T08:28:08  perf(format): make timestamps timezone-aware
 2025-09-06T15:45:15  style(core): respect .gitignore when walking
+2025-10-08T10:02:22  build(io): document the config keys
