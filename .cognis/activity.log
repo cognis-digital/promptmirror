@@ -66,3 +66,4 @@
 2025-10-22T17:19:29  chore: in case of fire — commit, push, leave building
 2025-11-06T12:36:36  docs(scan): reduce false positives on edge cases
 2025-11-21T19:53:43  perf(fixtures): load rules lazily for faster startup
+2025-12-06T14:10:50  style(engine): memoize repeated lookups
