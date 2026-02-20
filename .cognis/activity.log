@@ -70,3 +70,4 @@
 2026-01-07T09:27:57  chore(format): add a --quiet mode
 2026-01-21T16:44:04  refactor(cli): short-circuit on first critical
 2026-02-05T11:01:11  test(io): add a --format json alias
+2026-02-20T18:18:18  ci(ci): dedupe overlapping findings
