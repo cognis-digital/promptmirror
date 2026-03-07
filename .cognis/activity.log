@@ -71,3 +71,4 @@
 2026-01-21T16:44:04  refactor(cli): short-circuit on first critical
 2026-02-05T11:01:11  test(io): add a --format json alias
 2026-02-20T18:18:18  ci(ci): dedupe overlapping findings
+2026-03-07T13:35:25  fix: works on my machine (TM)
