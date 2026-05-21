@@ -75,3 +75,4 @@
 2026-04-08T08:52:32  chore(fixtures): add type hints to the public API
 2026-04-22T15:09:39  refactor(engine): add a fast path for the common case
 2026-05-07T10:26:46  test(tests): guard against ReDoS in patterns
+2026-05-21T17:43:53  chore(cli): reduce false positives on edge cases
