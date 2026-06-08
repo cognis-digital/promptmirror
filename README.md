@@ -36,7 +36,10 @@ Prompt-injection & indirect-injection scanner for any LLM context input — with
 <a name="features"></a>
 ## Features
 
-- ✅ Scan
+- ✅ Scan Text
+- ✅ Scan File
+- ✅ Scan Paths
+- ✅ Findings To Dict
 - ✅ Runs on Linux/macOS/Windows · Docker · devcontainer
 - ✅ Ports in Python, JavaScript, Go, and Rust (`ports/`)
 
