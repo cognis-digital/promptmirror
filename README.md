@@ -1,99 +1,116 @@
-# PROMPTMIRROR — Prompt-injection & indirect-injection scanner for any LLM context input
+<a name="top"></a>
+<div align="center">
 
-> Part of the **[Cognis Neural Suite](https://github.com/cognis-digital)** by [Cognis Digital](https://cognis.digital)
-> Cognis Open Collaboration License (COCL) v1.0 · domain: `ai-security`
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:6b46c1,100:2b6cb0&height=120&section=header&text=PROMPTMIRROR&fontSize=48&fontColor=ffffff&fontAlignY=58" width="100%" alt="PROMPTMIRROR"/>
 
-[![PyPI](https://img.shields.io/pypi/v/cognis-promptmirror.svg)](https://pypi.org/project/cognis-promptmirror/)
-[![CI](https://github.com/cognis-digital/promptmirror/actions/workflows/ci.yml/badge.svg)](https://github.com/cognis-digital/promptmirror/actions)
-[![License: COCL 1.0](https://img.shields.io/badge/License-COCL%201.0-2b6cb0.svg)](LICENSE)
-[![Suite](https://img.shields.io/badge/Cognis-Neural%20Suite-6b46c1.svg)](https://github.com/cognis-digital)
+# PROMPTMIRROR
 
-**Prompt-injection & indirect-injection scanner for any LLM context input.**
+### Prompt-injection & indirect-injection scanner for any LLM context input
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=3500&pause=1000&color=6B46C1&center=true&vCenter=true&width=720&lines=Promptinjection++indirectinjection+scanner+for+any+LLM+conte;Self-hostable+%C2%B7+MCP-native+%C2%B7+CI-ready+%C2%B7+polyglot" width="720"/>
+
+[![PyPI](https://img.shields.io/pypi/v/cognis-promptmirror.svg?color=6b46c1)](https://pypi.org/project/cognis-promptmirror/) [![CI](https://github.com/cognis-digital/promptmirror/actions/workflows/ci.yml/badge.svg)](https://github.com/cognis-digital/promptmirror/actions) [![License: COCL 1.0](https://img.shields.io/badge/License-COCL%201.0-2b6cb0.svg)](LICENSE) [![Suite](https://img.shields.io/badge/Cognis-Neural%20Suite-6b46c1.svg)](https://github.com/cognis-digital)
 
 *AI Security & Governance — securing LLMs, agents, and the MCP supply chain.*
 
-## Why
-
-Security and intelligence teams need prompt-injection & indirect-injection scanner for any LLM context input without standing up heavyweight infrastructure. `promptmirror` is single-purpose, scriptable, CI-friendly, and self-hostable: point it at a target, get prioritized findings in the format your workflow already speaks (table, JSON, SARIF, HTML), and wire it into agents over MCP when you want it autonomous.
-
-## Install
+</div>
 
 ```bash
 pip install cognis-promptmirror
-# or, from this repo:
-pip install -e ".[dev]"
+promptmirror scan .            # → prioritized findings in seconds
 ```
 
+## Contents
+
+- [Why promptmirror?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Contributing](#contributing)
+
+<a name="why"></a>
+## Why promptmirror?
+
+Prompt-injection & indirect-injection scanner for any LLM context input — without standing up heavyweight infrastructure.
+
+`promptmirror` is single-purpose, scriptable, and self-hostable: point it at a target, get prioritized results in the format your workflow already speaks (table · JSON · SARIF), gate CI on it, and let agents drive it over MCP.
+
+<div align="right"><a href="#top">↑ back to top</a></div>
+
+<a name="features"></a>
+## Features
+
+- ✅ Scan
+- ✅ Runs on Linux/macOS/Windows · Docker · devcontainer
+- ✅ Ports in Python, JavaScript, Go, and Rust (`ports/`)
+
+<div align="right"><a href="#top">↑ back to top</a></div>
+
+<a name="quick-start"></a>
 ## Quick start
 
 ```bash
+pip install cognis-promptmirror
 promptmirror --version
-promptmirror scan demos/                      # run against the bundled demo
-promptmirror scan demos/ --format sarif --out r.sarif --fail-on high
-promptmirror scan demos/ --format html --out report.html
-promptmirror mcp                              # expose as an MCP server (Cognis.Studio / Claude Desktop / Cursor)
+promptmirror scan .                       # scan current project
+promptmirror scan . --format json         # machine-readable
+promptmirror scan . --fail-on high        # CI gate (non-zero exit)
 ```
 
-## What it detects
+<div align="right"><a href="#top">↑ back to top</a></div>
 
-| Rule ID | Severity | Signal |
-|---|---|---|
-| `PM-IMP-001` | critical | Imperative Override |
-| `PM-ROL-002` | high | Role Hijack |
-| `PM-SYS-002` | high | Sys Prompt Extract |
-| `PM-MD-001` | high | Md Smuggle |
-| `PM-ZWS-001` | medium | Zero Width |
-| `PM-TOOL-001` | high | Tool Call Inject |
+<a name="example"></a>
+## Example
 
-*Rule set ships in this repo and grows over time — PRs adding detections are welcome.*
+```text
+$ promptmirror scan .
+  [HIGH    ] PRO-001  example finding             (./src/app.py)
+  [MEDIUM  ] PRO-002  another signal              (./config.yaml)
 
-## Built-in demo scenarios
+  2 findings · risk score 5 · 38ms
+```
 
-Each scenario folder includes a `SCENARIO.md` describing the situation and the findings to expect.
+<div align="right"><a href="#top">↑ back to top</a></div>
 
-- [`demos/01-customer-support-email/`](demos/01-customer-support-email/SCENARIO.md)
-- [`demos/02-rag-corpus-poisoning/`](demos/02-rag-corpus-poisoning/SCENARIO.md)
-- [`demos/03-browser-context-base64/`](demos/03-browser-context-base64/SCENARIO.md)
+<a name="how-it-compares"></a>
+## How it compares
 
-## Output formats
+| | **Cognis promptmirror** | utkusen |
+|---|:---:|:---:|
+| Self-hostable, no account | ✅ | varies |
+| Single command, zero config | ✅ | ⚠️ |
+| JSON + SARIF for CI | ✅ | varies |
+| MCP-native (AI agents) | ✅ | ❌ |
+| Polyglot ports (JS/Go/Rust) | ✅ | ❌ |
+| Open license | ✅ COCL | varies |
 
-- **Table** (default) — human-readable terminal summary
-- **JSON** — machine-readable findings for pipelines
-- **SARIF** — drops into GitHub code-scanning / IDE problem panes
-- **HTML** — shareable report with severity rollups
+*Built in the spirit of **utkusen/promptmap**, re-framed the Cognis way. Missing a credit? Open a PR.*
 
-## Credits / Built on
+<div align="right"><a href="#top">↑ back to top</a></div>
 
-Cognis composes and credits the best of open source. This tool builds on / interoperates with:
+<a name="integrations"></a>
+## Integrations
 
-- [`utkusen/promptmap`](https://github.com/utkusen/promptmap) — pattern inspiration
-- [`protectai/rebuff`](https://github.com/protectai/rebuff) — detection technique reference
+Pipes into your stack: **SARIF** for code-scanning, **JSON** for anything, an **MCP server** (`promptmirror mcp`) for AI agents, and a webhook forwarder for SIEM/Slack/Jira. See [`docs/INTEGRATIONS.md`](docs/INTEGRATIONS.md).
 
-Missing a credit? Open a PR — see [CONTRIBUTING.md](CONTRIBUTING.md).
+<div align="right"><a href="#top">↑ back to top</a></div>
 
-## How it fits the Cognis Neural Suite
+<a name="install-anywhere"></a>
+## Install anywhere
 
-`promptmirror` is one of **52 tools** in the [Cognis Neural Suite](https://github.com/cognis-digital). Every tool ships an MCP server, so [Cognis.Studio](https://cognis.studio) agents can call them as scoped capabilities.
+| Linux | macOS | Windows | Docker | Cloud |
+|---|---|---|---|---|
+| `scripts/setup-linux.sh` | `scripts/setup-macos.sh` | `scripts/setup-windows.ps1` | `docker run ghcr.io/cognis-digital/promptmirror` | [DEPLOY.md](docs/DEPLOY.md) (AWS/Azure/GCP/k8s) |
 
-**Sibling tools in `ai-security`:** [`aegis`](https://github.com/cognis-digital/aegis), [`ledgermind`](https://github.com/cognis-digital/ledgermind), [`adversa`](https://github.com/cognis-digital/adversa), [`guardpost`](https://github.com/cognis-digital/guardpost), [`hallumark`](https://github.com/cognis-digital/hallumark), [`aicard`](https://github.com/cognis-digital/aicard), [`biascope`](https://github.com/cognis-digital/biascope), [`mcpharden`](https://github.com/cognis-digital/mcpharden), [`agentlog`](https://github.com/cognis-digital/agentlog), [`ragshield`](https://github.com/cognis-digital/ragshield)
+<div align="right"><a href="#top">↑ back to top</a></div>
 
-## Architecture & roadmap
-
-- Design notes: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
-- Planned work: [`ROADMAP.md`](ROADMAP.md)
-
+<a name="contributing"></a>
 ## Contributing
 
-PRs, new detections, and demo scenarios are welcome under the collaboration-pull model. See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
+PRs, new rules, and demo scenarios are welcome under the collaboration-pull model — see [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
+
+> ### ⭐ If `promptmirror` saved you time, **star it** — it genuinely helps others find it.
 
 ## License
 
 Source-available under the **Cognis Open Collaboration License (COCL) v1.0** — free for personal, internal-evaluation, research, and educational use; **commercial / production use requires a license** (licensing@cognis.digital). See [LICENSE](LICENSE).
 
-## Responsible use
+---
 
-This is dual-use security software. Use it only against systems, data, and identities you own or are explicitly authorized in writing to test, and in compliance with applicable law.
-
-## About
-
-**[Cognis Digital](https://cognis.digital)** — Wyoming, USA · *Making Tomorrow Better Today: Advanced Cybersecurity, AI Innovation, and Blockchain Expertise.*
+<div align="center"><sub><b><a href="https://cognis.digital">Cognis Digital</a></b> · one of 170+ tools in the <a href="https://github.com/cognis-digital/cognis-neural-suite">Cognis Neural Suite</a> · <i>Making Tomorrow Better Today</i></sub></div>
