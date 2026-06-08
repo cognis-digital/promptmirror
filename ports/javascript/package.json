@@ -1,0 +1,10 @@
+{
+  "name": "@cognis/promptmirror",
+  "version": "0.2.0",
+  "description": "JavaScript port of promptmirror (Cognis Neural Suite)",
+  "bin": {
+    "promptmirror": "index.js"
+  },
+  "license": "LicenseRef-COCL-1.0",
+  "type": "module"
+}
