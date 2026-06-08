@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: promptmirror, labels: { app: promptmirror } }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: promptmirror } }
+  template:
+    metadata: { labels: { app: promptmirror } }
+    spec:
+      containers:
+        - name: promptmirror
+          image: ghcr.io/cognis-digital/promptmirror:latest
+          ports: [{ containerPort: 8000 }]
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits: { cpu: "500m", memory: "256Mi" }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: promptmirror }
+spec:
+  selector: { app: promptmirror }
+  ports: [{ port: 80, targetPort: 8000 }]
