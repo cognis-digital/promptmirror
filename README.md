@@ -16,7 +16,7 @@
 </div>
 
 ```bash
-pip install cognis-promptmirror
+pip install "git+https://github.com/cognis-digital/promptmirror.git"
 promptmirror scan .            # → prioritized findings in seconds
 ```
 
@@ -49,7 +49,7 @@ Prompt-injection & indirect-injection scanner for any LLM context input — with
 ## Quick start
 
 ```bash
-pip install cognis-promptmirror
+pip install "git+https://github.com/cognis-digital/promptmirror.git"
 promptmirror --version
 promptmirror scan .                       # scan current project
 promptmirror scan . --format json         # machine-readable
