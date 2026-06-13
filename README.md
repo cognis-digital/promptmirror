@@ -16,9 +16,15 @@
 </div>
 
 ```bash
-pip install cognis-promptmirror
+pip install "git+https://github.com/cognis-digital/promptmirror.git"
 promptmirror scan .            # → prioritized findings in seconds
 ```
+
+<!-- cognis:layman:start -->
+## What is this?
+
+PromptMirror checks text that is about to be fed into an AI for hidden manipulation attempts — things like hidden commands telling the AI to ignore its rules, tricks to make the AI reveal its confidential instructions, or sneaky links that could leak your private conversation to attackers. You run it on emails, documents, web pages, or any other content before passing it to an AI assistant, and it flags suspicious patterns with a severity rating so you can decide whether to block or review them. It is aimed at developers and security teams who build AI-powered products and need to protect their systems from prompt injection attacks.
+<!-- cognis:layman:end -->
 
 ## Contents
 
@@ -46,10 +52,56 @@ Prompt-injection & indirect-injection scanner for any LLM context input — with
 <div align="right"><a href="#top">↑ back to top</a></div>
 
 <a name="quick-start"></a>
+<!-- cognis:domains:start -->
+## Domains
+
+**Primary domain:** AI & ML  ·  **JTF MERIDIAN division:** ATHENA-PRIME · SAGE
+
+**Topics:** `cognis` `ai` `llm` `machine-learning`
+
+Part of the **Cognis Neural Suite** — 300+ source-available tools organized across 12 domains under the JTF MERIDIAN command structure. See the [suite on GitHub](https://github.com/cognis-digital) and [jtf-meridian](https://github.com/cognis-digital/jtf-meridian) for how the pieces fit together.
+<!-- cognis:domains:end -->
+
+<!-- cognis:install:start -->
+## Install
+
+`promptmirror` is source-available (not published to PyPI) — every method below installs
+straight from GitHub. Pick whichever you prefer; the one-line scripts auto-detect
+the best tool available on your machine.
+
+**One-liner (Linux / macOS):**
+```sh
+curl -fsSL https://raw.githubusercontent.com/cognis-digital/promptmirror/HEAD/install.sh | sh
+```
+
+**One-liner (Windows PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/cognis-digital/promptmirror/HEAD/install.ps1 | iex
+```
+
+**Or install manually — any one of:**
+```sh
+pipx install "git+https://github.com/cognis-digital/promptmirror.git"     # isolated (recommended)
+uv tool install "git+https://github.com/cognis-digital/promptmirror.git"  # uv
+pip install "git+https://github.com/cognis-digital/promptmirror.git"      # pip
+```
+
+**From source:**
+```sh
+git clone https://github.com/cognis-digital/promptmirror.git
+cd promptmirror && pip install .
+```
+
+Then run:
+```sh
+promptmirror --help
+```
+<!-- cognis:install:end -->
+
 ## Quick start
 
 ```bash
-pip install cognis-promptmirror
+pip install "git+https://github.com/cognis-digital/promptmirror.git"
 promptmirror --version
 promptmirror scan .                       # scan current project
 promptmirror scan . --format json         # machine-readable
