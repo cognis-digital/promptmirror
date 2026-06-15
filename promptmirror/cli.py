@@ -21,10 +21,23 @@ _VERDICT_GLYPH = {
 
 
 def _read(path: str) -> str:
+    """Read text from *path* or stdin ('-').
+
+    Raises:
+        OSError: if the file cannot be opened or read.
+        ValueError: if the file is not valid UTF-8 text.
+    """
+    if path is None:
+        raise OSError("no input path given and --text not specified")
     if path == "-":
         return sys.stdin.read()
-    with open(path, "r", encoding="utf-8") as fh:
-        return fh.read()
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            return fh.read()
+    except UnicodeDecodeError as exc:
+        raise ValueError(
+            f"file is not valid UTF-8 text: {exc}"
+        ) from exc
 
 
 # --------------------------------------------------------------------------- #
@@ -131,15 +144,23 @@ def _cmd_scan(args) -> int:
     if args.text is not None:
         text, source = args.text, "<string>"
     else:
+        path = getattr(args, "path", None)
+        if not path:
+            print("error: provide a file path or use -t/--text", file=sys.stderr)
+            return 2
         try:
-            text = _read(args.path)
-        except OSError as exc:
+            text = _read(path)
+        except (OSError, ValueError) as exc:
             print(f"error: cannot read input: {exc}", file=sys.stderr)
             return 2
-        source = "stdin" if args.path == "-" else args.path
+        source = "stdin" if path == "-" else path
 
-    res = scan(text, categories=args.category,
-               min_severity=args.min_severity, decode=not args.no_decode)
+    try:
+        res = scan(text, categories=args.category,
+                   min_severity=args.min_severity, decode=not args.no_decode)
+    except (TypeError, ValueError) as exc:
+        print(f"error: invalid scan argument: {exc}", file=sys.stderr)
+        return 2
 
     if args.format == "json":
         out = json.dumps(res.to_dict(), indent=2)
@@ -187,14 +208,25 @@ def _cmd_owasp(args) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = _build_parser()
-    args = parser.parse_args(argv)
-    if args.command == "scan":
-        return _cmd_scan(args)
-    if args.command == "rules":
-        return _cmd_rules(args)
-    if args.command == "owasp":
-        return _cmd_owasp(args)
-    return 2
+    try:
+        args = parser.parse_args(argv)
+    except SystemExit:
+        raise  # argparse already printed the error; propagate exit code
+    try:
+        if args.command == "scan":
+            return _cmd_scan(args)
+        if args.command == "rules":
+            return _cmd_rules(args)
+        if args.command == "owasp":
+            return _cmd_owasp(args)
+        return 2
+    except KeyboardInterrupt:
+        print("\ninterrupted", file=sys.stderr)
+        return 130
+    except BrokenPipeError:
+        # Suppress the Python traceback when a downstream pipe closes (e.g. `| head`).
+        sys.stderr.close()
+        return 0
 
 
 if __name__ == "__main__":

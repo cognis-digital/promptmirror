@@ -404,9 +404,28 @@ def scan(text: str,
     categories   : restrict to these rule categories (default: all)
     min_severity : drop matches below this severity
     decode       : also re-scan base64/hex/rot13-decoded layers
+
+    Raises ValueError for unknown min_severity or category values.
     """
     if text is None:
         text = ""
+    if not isinstance(text, str):
+        raise TypeError(
+            f"scan() expects a str, got {type(text).__name__!r}"
+        )
+    if min_severity not in _SEV_RANK:
+        raise ValueError(
+            f"unknown severity {min_severity!r}; "
+            f"valid values: {SEVERITY_ORDER}"
+        )
+    if categories is not None:
+        categories = list(categories)
+        bad = [c for c in categories if c not in CATEGORIES]
+        if bad:
+            raise ValueError(
+                f"unknown category/categories {bad!r}; "
+                f"valid values: {sorted(CATEGORIES)}"
+            )
     cat_set = set(categories) if categories else None
     active = [r for r in RULES
               if (cat_set is None or r.category in cat_set)
