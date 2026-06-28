@@ -20,6 +20,75 @@ pip install cognis-promptmirror
 promptmirror scan .            # → prioritized findings in seconds
 ```
 
+
+<!-- cognis:example:start -->
+## 🔎 Example output
+
+Real, reproducible output from the tool — runs offline:
+
+```console
+$ promptmirror-emit --version
+promptmirror 2.0.0
+```
+
+```console
+$ promptmirror-emit --help
+usage: promptmirror [-h] [--version] {scan,rules,owasp} ...
+
+Scan untrusted text for prompt-injection / LLM-abuse signatures (jailbreaks,
+role hijack, markdown exfil, encoding smuggling, tool-call injection) mapped
+to the OWASP Top 10 for LLM Applications.
+
+positional arguments:
+  {scan,rules,owasp}
+    scan              scan a file/stdin/string for injection
+    rules             list the bundled signature library
+    owasp             show OWASP LLM Top 10 coverage map
+
+options:
+  -h, --help          show this help message and exit
+  --version           show program's version number and exit
+```
+
+```console
+$ promptmirror-emit rules
+PROMPTMIRROR signature library — 26 rule(s)
+============================================================
+[CRITICAL] JB-IGNORE          LLM01  jailbreak        Ignore previous instructions
+           Classic instruction-override; tries to nullify the system prompt.
+[HIGH    ] JB-DAN             LLM01  jailbreak        DAN / 'Do Anything Now' persona
+           DAN-style unrestricted-persona jailbreak.
+[HIGH    ] JB-DEVMODE         LLM01  jailbreak        Developer / unrestricted mode
+           Requests a fictitious unrestricted/developer mode to bypass guardrails.
+[HIGH    ] JB-NORULES         LLM01  jailbreak        No-rules / no-restrictions framing
+           Asserts the model has no safety restrictions or policies.
+[MEDIUM  ] JB-HYPO            LLM01  jailbreak        Hypothetical / fiction wrapper
+           Fiction/hypothetical framing used to elicit otherwise-refused content.
+[MEDIUM  ] JB-GRANDMA         LLM01  jailbreak        Affective social-engineering ('grandma' exploit)
+           Emotional manipulation to coax restricted output.
+[MEDIUM  ] JB-PAYLOAD-SPLIT   LLM01  jailbreak        Payload splitting / concatenation evasion
+           Splits a banned phrase across fragments for the model to reassemble.
+[HIGH    ] JB-REFUSAL-SUPPRESS LLM01  jailbreak        Refusal suppression
+           Pre-emptively forbids the model from refusing or warning.
+[HIGH    ] RH-SYSTEM-TAG      LLM01  role_hijack      Injected system/role chat tag
+           Smuggled chat-template / role delimiter to forge a system turn.
+[HIGH    ] RH-NEWSYS          LLM01  role_hijack      You are now / new system prompt
+           Attempts to replace the assistant's role or system instructions.
+[HIGH    ] RH-LEAK-SYS        LLM07  role_hijack      Request to reveal system prompt
+           Tries to exfiltrate the confidential system prompt (LLM07).
+[MEDIUM  ] RH-VERBATIM        LLM07  role_hijack      Repeat everything above verbatim
+           Asks to echo all prior context verbatim — common prompt-leak primitive.
+[HIGH    ] EX-MD-IMG          LLM02  exfil_markdown   Markdown image exfiltration
+           Auto-rendered markdown image whose URL smuggles data to an attacker host.
+[HIGH    ] EX-MD-LINK         LLM02  exfil_markdown   Markdown link with templated data
+           Markdown link query-string templated with conversation/secret data.
+[HIGH    ] EX-IMG-TAG         LLM05  e
+```
+
+> Blocks above are real `promptmirror` output — reproduce them from a clone.
+
+<!-- cognis:example:end -->
+
 ## Usage — step by step
 
 1. **Install** (Python 3.9+):

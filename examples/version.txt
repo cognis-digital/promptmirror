@@ -1,0 +1,3 @@
+$ promptmirror-emit --version
+
+promptmirror 2.0.0

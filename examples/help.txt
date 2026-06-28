@@ -1,0 +1,17 @@
+$ promptmirror-emit --help
+
+usage: promptmirror [-h] [--version] {scan,rules,owasp} ...
+
+Scan untrusted text for prompt-injection / LLM-abuse signatures (jailbreaks,
+role hijack, markdown exfil, encoding smuggling, tool-call injection) mapped
+to the OWASP Top 10 for LLM Applications.
+
+positional arguments:
+  {scan,rules,owasp}
+    scan              scan a file/stdin/string for injection
+    rules             list the bundled signature library
+    owasp             show OWASP LLM Top 10 coverage map
+
+options:
+  -h, --help          show this help message and exit
+  --version           show program's version number and exit
